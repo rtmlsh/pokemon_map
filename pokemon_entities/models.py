@@ -13,3 +13,6 @@ class PokemonEntity(models.Model):
     pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE)
     longitude = models.FloatField()
     latitude = models.FloatField()
+    appeared_at = models.DateTimeField()
+    disappeared_at = models.DateTimeField()
+
