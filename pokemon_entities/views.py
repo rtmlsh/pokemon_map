@@ -82,6 +82,13 @@ def show_pokemon(request, pokemon_id):
             "img_url": request.build_absolute_uri(pokemon.evolution.picture.url)
         }
 
+    if pokemon.title != 'Венузавр':
+        pokemon_on_page['next_evolution'] = {
+                "title_ru": pokemon.next_evolution,
+                "pokemon_id": pokemon.next_evolution_id,
+                "img_url": request.build_absolute_uri(pokemon.next_evolution.picture.url)
+            }
+
 
     return render(request, 'pokemon.html', context={
         'map': folium_map._repr_html_(), 'pokemon': pokemon_on_page
