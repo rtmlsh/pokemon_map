@@ -72,8 +72,16 @@ def show_pokemon(request, pokemon_id):
         'title_ru': pokemon.title,
         'title_en': pokemon.title_en,
         'title_jp': pokemon.title_jp,
-        'description': pokemon.description
+        'description': pokemon.description,
     }
+
+    if pokemon.title != 'Бульбазавр':
+        pokemon_on_page['previous_evolution'] = {
+            "title_ru": pokemon.evolution,
+            "pokemon_id": pokemon.evolution_id,
+            "img_url": request.build_absolute_uri(pokemon.evolution.picture.url)
+        }
+
 
     return render(request, 'pokemon.html', context={
         'map': folium_map._repr_html_(), 'pokemon': pokemon_on_page
