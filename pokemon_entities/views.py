@@ -78,9 +78,9 @@ def show_pokemon(request, pokemon_id):
 
     if pokemons.first() != pokemon:
         pokemon_on_page['previous_evolution'] = {
-            "title_ru": pokemon.evolution,
-            "pokemon_id": pokemon.evolution_id,
-            "img_url": request.build_absolute_uri(pokemon.evolution.picture.url)
+            "title_ru": pokemon.previous_evolution,
+            "pokemon_id": pokemon.previous_evolution_id,
+            "img_url": request.build_absolute_uri(pokemon.previous_evolution.picture.url)
         }
 
     if pokemons.last() != pokemon:
@@ -90,7 +90,6 @@ def show_pokemon(request, pokemon_id):
                 "pokemon_id": next_pokemon.id,
                 "img_url": request.build_absolute_uri(next_pokemon.picture.url)
             }
-
 
     return render(request, 'pokemon.html', context={
         'map': folium_map._repr_html_(), 'pokemon': pokemon_on_page
