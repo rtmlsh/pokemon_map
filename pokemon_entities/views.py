@@ -55,7 +55,8 @@ def show_all_pokemons(request):
 
 
 def show_pokemon(request, pokemon_id):
-    pokemon = Pokemon.objects.filter(id=pokemon_id)[0]
+    pokemons = Pokemon.objects.all()
+    pokemon = pokemons.filter(id=pokemon_id).first()
     pokemon_entities = PokemonEntity.objects.filter(pokemon=pokemon)
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
 
@@ -72,21 +73,22 @@ def show_pokemon(request, pokemon_id):
         'title_ru': pokemon.title,
         'title_en': pokemon.title_en,
         'title_jp': pokemon.title_jp,
-        'description': pokemon.description,
+        'description': pokemon.description
     }
 
-    if pokemon.title != 'Бульбазавр':
+    if pokemons.first() != pokemon:
         pokemon_on_page['previous_evolution'] = {
             "title_ru": pokemon.evolution,
             "pokemon_id": pokemon.evolution_id,
             "img_url": request.build_absolute_uri(pokemon.evolution.picture.url)
         }
 
-    if pokemon.title != 'Венузавр':
+    if pokemons.last() != pokemon:
+        next_pokemon = pokemon.next_evolution.all().first()
         pokemon_on_page['next_evolution'] = {
-                "title_ru": pokemon.next_evolution,
-                "pokemon_id": pokemon.next_evolution_id,
-                "img_url": request.build_absolute_uri(pokemon.next_evolution.picture.url)
+                "title_ru": next_pokemon.title,
+                "pokemon_id": next_pokemon.id,
+                "img_url": request.build_absolute_uri(next_pokemon.picture.url)
             }
 
 
