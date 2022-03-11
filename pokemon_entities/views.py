@@ -1,7 +1,4 @@
 import folium
-import json
-
-from django.http import HttpResponseNotFound
 from django.shortcuts import render
 
 from pokemon_entities.models import Pokemon, PokemonEntity
@@ -80,7 +77,9 @@ def show_pokemon(request, pokemon_id):
         pokemon_on_page['previous_evolution'] = {
             "title_ru": pokemon.previous_evolution,
             "pokemon_id": pokemon.previous_evolution_id,
-            "img_url": request.build_absolute_uri(pokemon.previous_evolution.picture.url)
+            "img_url": request.build_absolute_uri(
+                pokemon.previous_evolution.picture.url
+            )
         }
 
     if pokemons.last() != pokemon:
