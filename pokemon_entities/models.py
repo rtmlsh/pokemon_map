@@ -31,7 +31,8 @@ class Pokemon(models.Model):
         related_name='next_evolution',
         on_delete=models.CASCADE,
         verbose_name='Предыдущая эволюция',
-        null=True
+        null=True,
+        blank=True
     )
 
     def __str__(self):

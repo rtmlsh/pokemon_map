@@ -69,16 +69,9 @@ def show_pokemon(request, pokemon_id):
         'title_en': pokemon.title_en,
         'title_jp': pokemon.title_jp,
         'description': pokemon.description,
-        # 'previous_evolution': {
-        #     "title_ru": pokemon.previous_evolution,
-        #     "pokemon_id": pokemon.previous_evolution_id,
-        #     "img_url": request.build_absolute_uri(
-        #         pokemon.previous_evolution.picture.url
-        #     )
-        # }
     }
 
-    if pokemons.first() != pokemon:
+    if pokemon.previous_evolution:
         pokemon_on_page['previous_evolution'] = {
             "title_ru": pokemon.previous_evolution,
             "pokemon_id": pokemon.previous_evolution_id,
