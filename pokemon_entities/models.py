@@ -29,7 +29,7 @@ class Pokemon(models.Model):
     previous_evolution = models.ForeignKey(
         'self',
         related_name='next_evolution',
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         verbose_name='Предыдущая эволюция',
         null=True,
         blank=True
@@ -42,7 +42,7 @@ class Pokemon(models.Model):
 class PokemonEntity(models.Model):
     pokemon = models.ForeignKey(
         Pokemon,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         verbose_name='Покемон',
         null=True
     )
