@@ -1,7 +1,7 @@
 import folium
-from django.shortcuts import render
-
+from django.shortcuts import render, get_object_or_404
 from pokemon_entities.models import Pokemon
+
 
 MOSCOW_CENTER = [55.751244, 37.618423]
 DEFAULT_IMAGE_URL = (
@@ -52,7 +52,7 @@ def show_all_pokemons(request):
 
 
 def show_pokemon(request, pokemon_id):
-    pokemon = Pokemon.objects.get(id=pokemon_id)
+    pokemon = get_object_or_404(Pokemon, id=pokemon_id)
     pokemon_entities = pokemon.entities.all()
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     next_pokemon = pokemon.next_evolution.all().first()
